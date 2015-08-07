@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Requiem for Kingsmouth Web Tools">
+    <meta name="author" content="Charles C Click;Oukranos;Gizmo;Alzie">
+
+    <title>Requiem for Kingsmouth</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/navbar.css" rel="stylesheet">
+	
+	<script src="../js/js.cookie.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container" id="maincontent">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">RFK Web Tools</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../about.html">About</a></li>
+			  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Player General<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="../feedback.html">Contact Staff</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OSS<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="../oss/patrols.php">Check Patrols</a></li>
+                </ul>
+              </li>
+			  <li><a href="../staff/main.php">Staff Area</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="users">
+              <li><a href="login.html">Login</a></li>
+              <li class="active"><a href="register.html">Register</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Register for Access</h1>
+        <p>You will need a one time password to verify ownership of your PC. Log in and use the +onetime command to receive it.</p>
+		<p>I recommend using a different username for the web tools than your character name.</p>
+      </div>
+
+	  <form name="registerform" id="registerform" action="../exec/register.php" method="post">
+		<div class="form-group">
+			<label for="uname">Username</label>
+			<input type="text" class="form-control" id="uname" name="uname" placeholder="Desired Username" />
+		</div>
+		<div class="form-group">
+			<label for="cname">Character Name</label>
+			<input type="text" class="form-control" name="cname" id="cname" placeholder="PC Name" />
+		</div>
+		<div class="form-group">
+			<label for="pw">Password</label>
+			<input type="password" class="form-control" name="pw" id="pw" placeholder="Desired Password" />
+		</div>
+		<div class="form-group">
+			<label for="otpw">One Time Password</label>
+			<input type="password" class="form-control" name="otpw" id="otpw" placeholder="One Time Password" />
+		</div>
+		<div class="form-group">
+			<label for="email">Email</label>
+			<input type="text" class="form-control" name="email" id="email" placeholder="Optional Email for Notifications" />
+		</div>
+		<button type="button" class="btn btn-default" id="regsub">Submit</button>
+	  </form>
+	  <br />
+	  
+	<div class="alert alert-danger alert-dismissable collapse" role="alert" id="emptyalert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<strong>Oh snap!</strong> Looks like you didn't fill all of the form in. Remember that email is the only optional field.
+	</div>
+	<div class="alert alert-info alert-dismissable" role="alert" id="otpwalert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<strong>FYI:</strong> Still need your one time password? Log into the game and type +onetime.
+	</div>
+	  
+    </div> <!-- /container -->
+	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/bootstrap.min.js"></script>	
+	
+	<script type="text/javascript">
+	
+		$("#regsub").click(function(){
+		   if( document.getElementById("uname").value.length == 0 || document.getElementById("cname").value.length == 0 || document.getElementById("pw").value.length == 0 || document.getElementById("otpw").value.length == 0 ){
+		   
+		       $("#emptyalert").collapse("show");
+			  
+			} else {
+			
+			   document.getElementById("registerform").submit();
+			
+			}
+		});
+		
+		$( document ).ready(function(){
+
+			if (jQuery.parseJSON(Cookies.get('RFKJournal')).Username){
+			
+				document.getElementById("users").innerHTML = "<li><a href=\"#\">" + jQuery.parseJSON(Cookies.get('RFKJournal')).Username + "</a></li><li><button type=\"button\" class=\"btn btn-default\" style=\"margin-top:9px;margin-bottom:9px;\"><span class=\"glyphicon glyphicon-cog\"></span></button></li>";
+			
+			}
+		
+		});	
+	
+	</script>
+	
+  </body>
+</html>
