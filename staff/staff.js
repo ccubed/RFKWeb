@@ -120,12 +120,18 @@ $( document ).ready( function(){
 $(document).on( "click", "button[name='archive']", function(event){
 				
 	var a = document.getElementById("tbData");
-	$.post( "../exec/archiveSurvey.php", { id: event.target.id } );
-	a.removeChild(event.target.parentElement.parentElement.parentElement);
+        var b = event.target;
+        if ( b.classname == "glyphicon glyphicon-ok-circle" ){
+            
+            b = b.parentElement;
+        
+        }        
+	$.post( "../exec/archiveSurvey.php", { id: b.id } );
+	a.removeChild(b.parentElement.parentElement.parentElement);
 				
 });
 
-//Activate Save Changes Button on Territories
+//Activate Save Changes Button on Bloodpools
 $(document).on( "click", "button[name='modsaves']", function(event){
 
 	var b = event.target.id;
@@ -157,4 +163,23 @@ $(document).on( "click", "button[name='makeStaff']", function(event){
 	$.post( "../exec/makeStaff.php", { id: a.id } );
 	a.parentElement.parentElement.parentElement.childNodes[2].innerHTML = "Staff";
 				
+});
+
+//Activate the Save Changes button on the row data for Territories
+$(document).on( "click", "button[name='saveterrow']", function(event){
+    
+    var a = event.target;
+    if ( a.className == "glyphicon glyphicon-check"){
+        
+        a = a.parentElement;
+        
+    }
+    var dbref = a.id.split("-")[0];
+    var c = a.parentElement.parentElement.parentElement.childNodes;
+    var d = c[0].childNodes[0].value;
+    var e = c[1].childNodes[0].value;
+    var f = c[2].childNodes[0].selectedIndex;
+    $.post( "../exec/updateTerRow.php", { id: dbref, name: d, kingpin: e, attitude: f } );
+    
+    
 });
