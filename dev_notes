@@ -1,0 +1,18 @@
+TransToTerritories - Button for transitioning to territories view
+
+TransToBloodpools - Button for transitioning to bloodpools view
+
+TransToPlayers - button for transitioning to players view
+
+TransToBoons - button for transitioning to boons view
+
+TransToSurveys - button for transitioning to surveys view
+TransToSurveysOpen - open surveys
+TransToSurveysArchived - closed surveys
+OpenSurveysBadge - # of open surveys
+ArchivedSurveysBadge - # of archived surveys
+TransToSurveyView - Button for transition to view a specific survey
+
+TransToCrises - button for transitioning to crises view
+
+TransToPortal - button for transitioning to index view - sections/portal.html
