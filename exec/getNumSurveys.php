@@ -14,7 +14,7 @@ if ($dbcon->connect_errno){
 
 if( !$errors ){
 
-	if( !$stmt=$dbcon->prepare("SELECT SUM(case when archived=0 then 1 else 0 end) as Open, SUM(case when archived=1 then 1 else 0 end) as Closed") ){
+	if( !$stmt=$dbcon->prepare("SELECT SUM(case when archived=0 then 1 else 0 end) as Open, SUM(case when archived=1 then 1 else 0 end) as Closed FROM Feedback") ){
 
 		$errors = 1;
         $results=array('status'=>'error','details'=>'Database Response Failed');
